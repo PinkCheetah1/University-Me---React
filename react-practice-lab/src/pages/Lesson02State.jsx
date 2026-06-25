@@ -1,4 +1,19 @@
+import { useState } from 'react';
+
 export default function Lesson02State() {
+  const [countNum, setCountNum] = useState(0);
+
+  function incrementCounter() {
+    setCountNum(countNum + 1);
+  };
+
+  function decrementCounter() {
+    setCountNum(countNum - 1);
+  };
+
+  function resetCounter() {
+    setCountNum(0)
+  }
   return (
     <div className="lesson-page">
       <h1 className="lesson-title">Lesson 2: State</h1>
@@ -19,18 +34,16 @@ export default function Lesson02State() {
       </div>
 
       <div className="card" style={{ textAlign: 'center', padding: '3rem' }}>
-        {/* TODO: Render the current count state here */}
-        <h2 style={{ fontSize: '4rem', marginBottom: '2rem' }}>0</h2>
+
+        <h2 style={{ fontSize: '4rem', marginBottom: '2rem' }}>{countNum}</h2>
 
         <div className="flex-gap" style={{ justifyContent: 'center' }}>
-          {/* TODO: Attach decrement handler */}
-          <button className="btn btn-danger">- Decrement</button>
-          
-          {/* TODO: Attach reset handler */}
-          <button className="btn" style={{ backgroundColor: 'var(--border-color)' }}>Reset</button>
-          
-          {/* TODO: Attach increment handler */}
-          <button className="btn">+ Increment</button>
+
+          <button className="btn btn-danger" onClick={decrementCounter}>- Decrement</button>
+
+          <button className="btn" onClick={resetCounter} style={{ backgroundColor: 'var(--border-color)' }}>Reset</button>
+
+          <button className="btn" onClick={incrementCounter}>+ Increment</button>
         </div>
       </div>
     </div>
