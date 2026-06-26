@@ -1,6 +1,11 @@
-// import ProfileCard from '../components/ProfileCard';
+import ProfileCard from '../components/ProfileCard';
 
 export default function Lesson05Props() {
+  const profiles = [
+    {id: 1, name: "Hannah", role: "Wifey", image: "👰‍♀️"},
+    {id: 2, name: "Spencer", role: "Hubby", image: "🤵‍♂️"},
+    {id: 3, name: "Autumn", role: "Cat", image: "🐈"}
+  ]
   return (
     <div className="lesson-page">
       <h1 className="lesson-title">Lesson 5: Props</h1>
@@ -22,10 +27,9 @@ export default function Lesson05Props() {
         {/* TODO: Render your ProfileCard components here */}
         
         {/* Example: <ProfileCard name="Alice" role="Developer" image="👩‍💻" /> */}
-        
-        <div className="card" style={{ textAlign: 'center' }}>
-          <p style={{ color: 'var(--text-muted)' }}>Render ProfileCards here</p>
-        </div>
+        {profiles.map(profile => (
+          <ProfileCard key={profile.id} profile={profile}></ProfileCard>
+        ))}
       </div>
     </div>
   );
