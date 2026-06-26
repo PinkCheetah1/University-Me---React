@@ -1,4 +1,27 @@
+import { useState } from "react";
 export default function Lesson03Events() {
+  const [reaction, setReaction] = useState("...")
+
+  const handleChange = (e) => {
+    switch (e.target.title) {
+      case "happy":
+        setReaction("😄");
+        break;
+      case "sad":
+        setReaction("😢");
+        break;
+      case "excited":
+        setReaction("🎉");
+        break;
+      case "confused":
+        setReaction("🤔");
+        break;
+      case "reset":
+        setReaction("...");
+        break;
+    }
+  }
+
   return (
     <div className="lesson-page">
       <h1 className="lesson-title">Lesson 3: Events</h1>
@@ -20,18 +43,18 @@ export default function Lesson03Events() {
         
         <div className="flex-gap" style={{ marginTop: '1.5rem', marginBottom: '2rem' }}>
           {/* TODO: Attach click handlers to update the reaction state */}
-          <button className="btn">Happy 😄</button>
-          <button className="btn">Sad 😢</button>
-          <button className="btn">Excited 🎉</button>
-          <button className="btn">Confused 🤔</button>
+          <button className="btn" title="happy" onClick={handleChange}>Happy 😄</button>
+          <button className="btn" title="sad" onClick={handleChange}>Sad 😢</button>
+          <button className="btn" title="excited" onClick={handleChange}>Excited 🎉</button>
+          <button className="btn" title="confused" onClick={handleChange}>Confused 🤔</button>
+          <button className="btn" title="reset" onClick={handleChange}>Reset</button>
         </div>
 
         <div>
           <h4>Current Reaction:</h4>
           {/* TODO: Render the selected reaction state inside this div */}
           <div className="reaction-result">
-            {/* Show reaction emoji here */}
-            ...
+            {reaction}
           </div>
         </div>
       </div>
