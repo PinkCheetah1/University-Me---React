@@ -1,4 +1,18 @@
+import { useState } from 'react';
+
 export default function Lesson06Forms() {
+  const [name, setName] = useState("Jane");
+  const [species, setSpecies] = useState("Doe");
+  const [age, setAge] = useState(0);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    setName(form.name.value);
+    setSpecies(form.species.value);
+    setAge(form.age.value);
+  }
+
   return (
     <div className="lesson-page">
       <h1 className="lesson-title">Lesson 6: Forms</h1>
@@ -17,23 +31,23 @@ export default function Lesson06Forms() {
 
       <div className="card">
         <h3>Pet Registration</h3>
-        <form style={{ marginTop: '1.5rem' }} onSubmit={(e) => e.preventDefault()}>
+        <form style={{ marginTop: '1.5rem' }} onSubmit={handleSubmit}>
           <div style={{ marginBottom: '1rem' }}>
             <label style={{ display: 'block', marginBottom: '0.5rem' }}>Name</label>
             {/* TODO: Connect this input to state */}
-            <input type="text" className="input" placeholder="e.g. Fluffy" />
+            <input type="text" name='name' className="input" placeholder="e.g. Fluffy" />
           </div>
 
           <div style={{ marginBottom: '1rem' }}>
             <label style={{ display: 'block', marginBottom: '0.5rem' }}>Species</label>
             {/* TODO: Connect this input to state */}
-            <input type="text" className="input" placeholder="e.g. Cat" />
+            <input type="text" name='species' className="input" placeholder="e.g. Cat" />
           </div>
 
           <div style={{ marginBottom: '1.5rem' }}>
             <label style={{ display: 'block', marginBottom: '0.5rem' }}>Age</label>
             {/* TODO: Connect this input to state */}
-            <input type="number" className="input" placeholder="e.g. 3" />
+            <input type="number" name="age" className="input" placeholder="e.g. 3" />
           </div>
 
           <button className="btn">Register</button>
@@ -44,9 +58,9 @@ export default function Lesson06Forms() {
         <h3>Live Preview</h3>
         <div style={{ marginTop: '1rem' }}>
           {/* TODO: Display live state values here */}
-          <p><strong>Name:</strong> [Name here]</p>
-          <p><strong>Species:</strong> [Species here]</p>
-          <p><strong>Age:</strong> [Age here]</p>
+          <p><strong>Name:</strong> {name}</p>
+          <p><strong>Species:</strong> {species}</p>
+          <p><strong>Age:</strong> {age}</p>
         </div>
       </div>
     </div>
