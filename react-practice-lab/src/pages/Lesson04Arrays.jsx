@@ -1,7 +1,19 @@
-// TODO: Import the movies data
-// import { movies } from '../data/movies';
+import { movies } from '../data/movies';
 
 export default function Lesson04Arrays() {
+  function renderMovieReview(item) {
+    return ( 
+      <div className="movie-card">
+          <div className="movie-img-placeholder">{emoji}</div>
+          <div className="movie-info">
+            <h4>{title}</h4>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>
+              Rating: {rating} / 10
+            </p>
+          </div>
+        </div> 
+    )
+  }
   return (
     <div className="lesson-page">
       <h1 className="lesson-title">Lesson 4: Arrays</h1>
@@ -21,22 +33,24 @@ export default function Lesson04Arrays() {
 
       <div style={{ marginBottom: '1.5rem' }}>
         {/* TODO: Display the count of filtered movies */}
-        <strong>Showing [Count] highly rated movies</strong>
+        <strong>Showing {movies.length} highly rated movies</strong>
       </div>
 
       <div className="movie-grid">
         {/* TODO: Map over your filtered movies array to render these cards */}
         
         {/* Placeholder Card - Replace with mapped data */}
-        <div className="movie-card">
-          <div className="movie-img-placeholder">Image</div>
+        {movies.filter(item => item.rating >= 8.5).map(item => 
+          (<div className="movie-card" key={item.id}>
+          <div className="movie-img-placeholder">{item.emoji}</div>
           <div className="movie-info">
-            <h4>[Movie Title]</h4>
+            <h4>{item.title}</h4>
             <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>
-              Rating: [Movie Rating] / 10
+              Rating: {item.rating} / 10
             </p>
           </div>
-        </div>
+        </div> 
+        ))}
         
       </div>
     </div>
