@@ -16,6 +16,9 @@ export default function Lesson03Events() {
       case "confused":
         setReaction("🤔");
         break;
+      case "reset":
+        setReaction("...");
+        break;
     }
   }
 
@@ -44,6 +47,7 @@ export default function Lesson03Events() {
           <button className="btn" title="sad" onClick={handleChange}>Sad 😢</button>
           <button className="btn" title="excited" onClick={handleChange}>Excited 🎉</button>
           <button className="btn" title="confused" onClick={handleChange}>Confused 🤔</button>
+          <button className="btn" title="reset" onClick={handleChange}>Reset</button>
         </div>
 
         <div>
