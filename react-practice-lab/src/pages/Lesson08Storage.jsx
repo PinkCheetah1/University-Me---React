@@ -1,4 +1,23 @@
+import { useState } from "react";
 export default function Lesson08Storage() {
+  const [notes, setNotes] = useState("");
+  function updateNotes(e){
+    setNotes(e.target.value)
+  }
+
+  function clearNotes(){
+    setNotes("");
+    localStorage.setItem("savedNotes", "");
+  }
+
+  function saveNotes(){
+    localStorage.setItem("savedNotes", notes);
+  }
+
+  function loadNotes(){
+    setNotes(localStorage.getItem("savedNotes"));
+  }
+
   return (
     <div className="lesson-page">
       <h1 className="lesson-title">Lesson 8: Storage</h1>
@@ -25,17 +44,19 @@ export default function Lesson08Storage() {
           rows="6" 
           placeholder="Write your notes here..."
           style={{ resize: 'vertical' }}
+          value={notes}
+          onChange={updateNotes}
         ></textarea>
 
         <div className="flex-gap" style={{ marginTop: '1rem' }}>
           {/* TODO: Attach load handler */}
-          <button className="btn" style={{ backgroundColor: 'var(--success)' }}>Load Notes</button>
+          <button className="btn" onClick={loadNotes} style={{ backgroundColor: 'var(--success)' }}>Load Notes</button>
           
           {/* TODO: Attach save handler */}
-          <button className="btn">Save Notes</button>
+          <button className="btn" onClick={saveNotes}>Save Notes</button>
           
           {/* TODO: Attach clear handler */}
-          <button className="btn btn-danger">Clear</button>
+          <button className="btn btn-danger" onClick={clearNotes}>Clear</button>
         </div>
       </div>
     </div>
