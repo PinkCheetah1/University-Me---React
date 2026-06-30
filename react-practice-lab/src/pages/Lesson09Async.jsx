@@ -1,7 +1,44 @@
 // TODO: Import fetchWeather function
-// import { fetchWeather } from '../data/mockWeather';
+import { fetchWeather } from '../data/mockWeather';
+import { useState } from 'react';
 
 export default function Lesson09Async() {
+  const [weather, setWeather] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
+
+  async function getData() {
+    // While we wait, loading screen
+    setIsLoading(true);
+    setError("");
+    // Put in the request
+    // If we get an error, display error. 
+    try {
+      const data = await fetchWeather();
+      setWeather(data)
+    } catch (err) {
+      setError(err.message);
+    }
+    setIsLoading(false);
+  }
+
+  let content = "";
+  if (isLoading) {
+    content = <div style={{ color: 'var(--primary)', fontWeight: 'bold' }}>Loading...</div>;
+  } else if (error) {
+    content = <div style={{ color: 'var(--danger)' }}>Error loading weather! Error: {error} </div>;
+  } else if (weather) {
+    content = <div>
+             <div style={{ fontSize: '4rem' }}>{weather.emoji}</div>
+             <h2>{weather.temp}</h2>
+             <p>{weather.condition} in {weather.location}</p>
+           </div>
+  } else {
+    content = <div style={{ color: 'var(--text-muted)' }}>Click to view weather.</div>
+  }
+
+
+
   return (
     <div className="lesson-page">
       <h1 className="lesson-title">Lesson 9: Async</h1>
@@ -26,29 +63,11 @@ export default function Lesson09Async() {
         
         <div style={{ margin: '2rem 0' }}>
           {/* TODO: conditionally render loading, error, or weather data based on state */}
-          
-          <div style={{ color: 'var(--text-muted)' }}>
-            Click the button to load weather data.
-          </div>
-
-          {/* Loading example */}
-          {/* <div style={{ color: 'var(--primary)', fontWeight: 'bold' }}>Loading...</div> */}
-
-          {/* Success example */}
-          {/* 
-          <div>
-            <div style={{ fontSize: '4rem' }}>☀️</div>
-            <h2>72°F</h2>
-            <p>Sunny in San Francisco</p>
-          </div>
-          */}
-
-          {/* Error example */}
-          {/* <div style={{ color: 'var(--danger)' }}>Error loading weather!</div> */}
+            {content}
         </div>
 
         {/* TODO: Attach fetch click handler */}
-        <button className="btn">Load Weather</button>
+        <button className="btn" onClick={getData}>Load Weather</button>
       </div>
     </div>
   );
