@@ -1,6 +1,45 @@
-// import { fetchWeather } from '../data/mockWeather';
+import { fetchWeather } from '../data/mockWeather';
+import { useState, useEffect } from 'react';
 
 export default function Lesson10Effects() {
+  const [weather, setWeather] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
+
+  async function getData() {
+    // While we wait, loading screen
+    setIsLoading(true);
+    setError("");
+    // Put in the request
+    // If we get an error, display error. 
+    try {
+      const data = await fetchWeather();
+      setWeather(data)
+    } catch (err) {
+      setError(err.message);
+    }
+    setIsLoading(false);
+  }
+
+  let content = "";
+  if (isLoading) {
+    content = <div style={{ color: 'var(--primary)', fontWeight: 'bold' }}>Loading...</div>;
+  } else if (error) {
+    content = <div style={{ color: 'var(--danger)' }}>Error loading weather! Error: {error} </div>;
+  } else if (weather) {
+    content = <div>
+      <div style={{ fontSize: '4rem' }}>{weather.emoji}</div>
+      <h2>{weather.temp}</h2>
+      <p>{weather.condition} in {weather.location}</p>
+    </div>
+  } else {
+    content = <div style={{ color: 'var(--text-muted)' }}>Click to view weather.</div>
+  }
+
+  useEffect(() => {
+    getData();
+  }, [])
+
   return (
     <div className="lesson-page">
       <h1 className="lesson-title">Lesson 10: useEffect</h1>
@@ -20,13 +59,10 @@ export default function Lesson10Effects() {
 
       <div className="card" style={{ textAlign: 'center' }}>
         <h3>Live Weather Widget</h3>
-        
+
         <div style={{ margin: '2rem 0' }}>
-          {/* TODO: render loading, error, or weather data automatically */}
-          
-          <div style={{ color: 'var(--text-muted)' }}>
-            Weather should load automatically...
-          </div>
+          {/* TODO: conditionally render loading, error, or weather data based on state */}
+            {content}
         </div>
       </div>
     </div>
